@@ -33,6 +33,20 @@ function App() {
         } else {
           if (!wrongLetters.includes(letter)) {
             setWrongLetters([...wrongLetters, letter]);
+            const figureParts = document.querySelectorAll(".figure-part");
+            figureParts.forEach((part, index) => {
+              const errors = wrongLetters.length;
+              if (index <= errors) {
+                part.style.display = "block";
+              } else {
+                part.style.display = "none";
+              }
+            });
+            if (wrongLetters.length + 1 === figureParts.length) {
+              document.getElementById("final-message").innerText =
+                "Unfortunately you lost.";
+              document.getElementById("popup-container").style.display = "flex";
+            }
           } else {
             setShowNotification(true);
             setTimeout(() => setShowNotification(false), 2000);
@@ -68,7 +82,7 @@ function App() {
           <div id="wrong-letters">
             <p>Wrong Letters:</p>
             {wrongLetters.map((letter) => {
-              return <span>{letter} </span>;
+              return <span key={uuidv4()}>{letter} </span>;
             })}
           </div>
         </div>
