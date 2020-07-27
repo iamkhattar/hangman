@@ -54,7 +54,7 @@ function App() {
         }
       }
     });
-  }, [wrongLetters, correctLetters]);
+  }, [selectedWord, correctLetters, wrongLetters, showNotification]);
 
   return (
     <div className="mainApp">
