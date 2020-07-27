@@ -9,9 +9,12 @@ function App() {
   const [correctLetters, setCorrectLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
 
+  const [showNotification, setShowNotification] = useState(false);
+
   const setRandomWord = () => {
     setSelectedWord(words[Math.floor(Math.random() * words.length - 1)]);
   };
+
   if (selectedWord === "") {
     setRandomWord();
   }
@@ -19,17 +22,25 @@ function App() {
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
       if (e.keyCode <= 90 && e.keyCode >= 65) {
-        const letter = e.key;
+        const letter = e.key.toString();
         if (selectedWord.includes(letter)) {
           if (!correctLetters.includes(letter)) {
-            setCorrectLetters((correctLetters) => [...correctLetters, letter]);
+            setCorrectLetters([...correctLetters, letter]);
           } else {
-            const noti = document.getElementById("notification-container");
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 2000);
+          }
+        } else {
+          if (!wrongLetters.includes(letter)) {
+            setWrongLetters([...wrongLetters, letter]);
+          } else {
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 2000);
           }
         }
       }
     });
-  }, []);
+  }, [wrongLetters, correctLetters]);
 
   return (
     <div className="mainApp">
@@ -56,6 +67,9 @@ function App() {
         <div className="wrong-letters-container">
           <div id="wrong-letters">
             <p>Wrong Letters:</p>
+            {wrongLetters.map((letter) => {
+              return <span>{letter} </span>;
+            })}
           </div>
         </div>
 
@@ -77,9 +91,14 @@ function App() {
         </div>
       </div>
 
-      <div className="notification-container" id="notification-container">
-        <p>You have already entered this letter</p>
-      </div>
+      {showNotification && (
+        <div
+          className="notification-container show"
+          id="notification-container"
+        >
+          <p>You have already entered this letter</p>
+        </div>
+      )}
     </div>
   );
 }
