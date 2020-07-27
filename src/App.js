@@ -1,7 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
+  const words = require("./assets/words.json").data;
+  const [selectedWord, setSelectedWord] = useState("");
+
+  const [correctLetters, setCorrectLetters] = useState([]);
+  const [wrongLetters, setWrongLetters] = useState([]);
+
+  const setRandomWord = () => {
+    setSelectedWord(words[Math.floor(Math.random() * words.length - 1)]);
+  };
+  if (selectedWord === "") {
+    setRandomWord();
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      if (e.keyCode <= 90 && e.keyCode >= 65) {
+        const letter = e.key;
+        if (selectedWord.includes(letter)) {
+          if (!correctLetters.includes(letter)) {
+            setCorrectLetters((correctLetters) => [...correctLetters, letter]);
+          } else {
+            const noti = document.getElementById("notification-container");
+          }
+        }
+      }
+    });
+  }, []);
+
   return (
     <div className="mainApp">
       <h1>Hangman</h1>
@@ -27,13 +56,17 @@ function App() {
         <div className="wrong-letters-container">
           <div id="wrong-letters">
             <p>Wrong Letters:</p>
-            <span>a</span>
-            <span>b</span>
           </div>
         </div>
 
         <div className="word" id="word">
-          <span className="letter"></span>
+          {selectedWord.split("").map((letter) => {
+            return (
+              <span className="letter" key={uuidv4()}>
+                {correctLetters.includes(letter) ? letter : ""}
+              </span>
+            );
+          })}
         </div>
       </div>
 
@@ -44,7 +77,7 @@ function App() {
         </div>
       </div>
 
-      <div className="notification-container show" id="notification-container">
+      <div className="notification-container" id="notification-container">
         <p>You have already entered this letter</p>
       </div>
     </div>
