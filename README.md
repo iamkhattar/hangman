@@ -52,8 +52,8 @@ npm start
 
 ## Application
 
-| ![Login Page](assets/hangman1.jpg) | ![Chat Page](assets/hangman2.jpg) | ![Register Page](assets/hangman3.jpg) |
-| ---------------------------------- | :-------------------------------: | ------------------------------------: |
+| ![Page](assets/hangman1.JPG) | ![Page](assets/hangman2.JPG) | ![Page](assets/hangman3.JPG) |
+| ---------------------------- | :--------------------------: | ---------------------------: |
 
 
 ## Contributors
