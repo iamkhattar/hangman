@@ -1,3 +1,4 @@
 - [Home](README.md)
 - [Quick Start](quickstart.md)
+- [Application](application.md)
 - [Play](https://iamkhattar.github.io/hangman/play)

@@ -18,11 +18,11 @@ Solve the puzzle before the hangman dies.
 
 ## Playing the Game
 
-A live version of the game can be played [here]().
+A live version of the game can be played [here](https://iamkhattar.github.io/hangman/).
 
 ## Documentation
 
-The documentation for this repository can be viewed [here]().
+The documentation for this repository can be viewed [here](https://iamkhattar.github.io/hangman/play).
 
 ## Installing Dependencies
 
