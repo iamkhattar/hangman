@@ -19,6 +19,18 @@ function App() {
     setRandomWord();
   }
 
+  const updateFigure = () => {
+    const figureParts = document.querySelectorAll(".figure-part");
+    figureParts.forEach((part, index) => {
+      const errors = wrongLetters.length;
+      if (index <= errors) {
+        part.style.display = "block";
+      } else {
+        part.style.display = "none";
+      }
+    });
+  };
+
   useEffect(() => {
     window.addEventListener("keydown", (e) => {
       if (e.keyCode <= 90 && e.keyCode >= 65) {
@@ -33,15 +45,8 @@ function App() {
         } else {
           if (!wrongLetters.includes(letter)) {
             setWrongLetters([...wrongLetters, letter]);
+            updateFigure();
             const figureParts = document.querySelectorAll(".figure-part");
-            figureParts.forEach((part, index) => {
-              const errors = wrongLetters.length;
-              if (index <= errors) {
-                part.style.display = "block";
-              } else {
-                part.style.display = "none";
-              }
-            });
             if (wrongLetters.length + 1 === figureParts.length) {
               document.getElementById("final-message").innerText =
                 "Unfortunately you lost.";
@@ -101,7 +106,14 @@ function App() {
       <div className="popup-container" id="popup-container">
         <div className="popup">
           <h2 id="final-message"></h2>
-          <button id="play-button">Play Again</button>
+          <button
+            id="play-button"
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Play Again
+          </button>
         </div>
       </div>
 
